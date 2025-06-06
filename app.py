@@ -8,7 +8,10 @@ import os
 app = Flask(__name__)
 
 # --- CONFIGURE GEMINI ---
-genai.configure(api_key="AIzaSyCudgD8b3DQHHhoQ48U7Z1e7-BbWtc2ULg")
+api_key = os.getenv("GENAI_API_KEY")
+if not api_key:
+    raise EnvironmentError("GENAI_API_KEY environment variable not set")
+genai.configure(api_key=api_key)
 gemini_model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
 
 ffmpeg_path = r"D:\Brother\ffmpeg\bin"
